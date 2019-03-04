@@ -1,0 +1,33 @@
+
+function removeDuplicates()
+{
+  var s = SpreadsheetApp.getActiveSheet();
+    var c = Browser.inputBox("Please", "Type in the column name (e.g.: A, B, etc.)", Browser.Buttons.OK_CANCEL)
+  var r, v;
+  var aValues = [];
+  try
+  {
+    if(c != "cancel")
+    {
+      r = 2; 
+      while (r <= s.getLastRow())
+      {
+        v = s.getRange(c + r).getValue();
+        if(v != "")
+        {
+          if(aValues.indexOf(v) == -1)
+          {
+            aValues.push(v);
+          }
+          else
+          {
+            s.deleteRow(r);
+            continue;
+          }
+        }
+        r++;
+      }
+      Browser.msgBox("Duplicates removed!");
+    }
+  } catch (e) {Browser.msgBox("Error Alert:", e.message, Browser.Buttons.OK);}
+}
